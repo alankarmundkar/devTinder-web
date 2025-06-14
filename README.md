@@ -5,3 +5,10 @@
 - Add Navbar
 
 
+Body 
+  NavBar
+  Route /  => Feed
+  Route /login => Login
+  Route /connection => connection
+  Route / 
+
