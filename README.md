@@ -12,3 +12,6 @@ Body
   Route /connection => connection
   Route / 
 
+- whenever you are making api call passs  { withCredentials: true } in axios
+
+
