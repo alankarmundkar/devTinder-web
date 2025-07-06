@@ -1,19 +1,33 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { endPoints } from "../utils";
+import { useState } from "react";
+import axios from "../utils/axios";
+import { endPoints } from "../utils/constant";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
-  const [emailId,setEmailId] = useState('')
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const [password,setPassword] = useState("")
+  const [emailId,setEmailId] = useState("alankar@gmail.com")
+  const [password,setPassword] = useState("Alankar@123")
+  const [error,setError] = useState("")
+
 
   const handleLogin = async () => {
-    const {data} = await axios.post(endPoints.login,{
-      emailId,
-      password
-    },{withCredentials: true})
-    console.log(data,'data')
+    try {
+      const {data:{data,message}} = await axios.post(endPoints.login,{
+      emailId: emailId.trim(),
+      password: password.trim()
+    })
+    if(message==="Login Successfull!"){
+       dispatch(addUser(data))
+       navigate("/")
+    }
+    } catch (error) {
+      setError(error.response.data)
+    }
   }
 
   return (
@@ -43,8 +57,12 @@ const Login = () => {
               />
             </fieldset>
           </div>
+          <p className="text-red-500">{error}</p>
           <div className="card-actions justify-center m-5">
             <button className="btn btn-primary" onClick={handleLogin}>Login</button>
+          </div>
+          <div className="card-actions justify-center m-5">
+            <p className="text-sm cursor-pointer">New user? <Link to="/signup">Signup</Link></p>
           </div>
         </div>
       </div>
