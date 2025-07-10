@@ -36,12 +36,12 @@ const Feed = () => {
     getFeed();
   }, []);
 
-  if(feed.length === 0){
+  if(feed?.length === 0){
     return <div>No more users found</div>
   }
   return (
     <div className="flex flex-col mt-10 items-center gap-2">
-       {feed[feedIndex]?._id && <UserCard key={feed[feedIndex]?._id} data={feed[feedIndex]} handleGetNextUser={handleGetNextUser} />}
+       {feed && feed[feedIndex]?._id && <UserCard key={feed[feedIndex]?._id} data={feed[feedIndex]} handleGetNextUser={handleGetNextUser} />}
     </div>
   );
 };
