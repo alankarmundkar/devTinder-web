@@ -1,4 +1,4 @@
-export const BASE_URL = '/api'
+export const BASE_URL = window.origin.includes('localhost') ? 'http://localhost:7777':  '/api'
 
 export const endPoints= {
   login:  '/login',
